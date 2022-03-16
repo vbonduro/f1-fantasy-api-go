@@ -29,9 +29,8 @@ func (req Request) makeHttpRequest(method string) (*http.Request, error) {
 	return httpReq, nil
 }
 
-// Post will send an HTTP request to the server and return back a bytes array with the result.
-func (req Request) Post() (http.Header, []byte, error) {
-	httpReq, err := req.makeHttpRequest("POST")
+func (req Request) send(method string) (http.Header, []byte, error) {
+	httpReq, err := req.makeHttpRequest(method)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -54,4 +53,14 @@ func (req Request) Post() (http.Header, []byte, error) {
 	}
 
 	return res.Header, body, nil
+}
+
+// Post will send an HTTP request to the server and return back a bytes array with the result.
+func (req Request) Post() (http.Header, []byte, error) {
+	return req.send("POST")
+}
+
+// Post will send an HTTP request to the server and return back a bytes array with the result.
+func (req Request) Get() (http.Header, []byte, error) {
+	return req.send("GET")
 }
