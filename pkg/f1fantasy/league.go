@@ -2,6 +2,7 @@ package f1fantasy
 
 import "fmt"
 
+// LeaderboardEntry is a particular entry in the league leaderboard.
 type LeaderboardEntry struct {
 	UserId            int      `json:"user_id"`
 	UserGlobalId      string   `json:"user_global_id"`
@@ -16,6 +17,7 @@ type LeaderboardEntry struct {
 	UsedBoosterIds    []string `json:"overall_used_booster_ids"` // todo: Figure out format!
 }
 
+// Leaderboard contains information for the leaderboard for a particular league.
 type Leaderboard struct {
 	NumEntrants            int                `json:"entrants_count"`
 	LeagueName             string             `json:"league_name"`
@@ -26,11 +28,12 @@ type Leaderboard struct {
 	Entries                []LeaderboardEntry `json:"leaderboard_entrants"`
 }
 
+// LeagueLeaderboard is the parent container for all of the league leaderboard information.
 type LeagueLeaderboard struct {
 	Leaderboard Leaderboard `json:"leaderboard"`
 }
 
-// GetPlayers is a public API that retrieves player list and statistics.
+// GetLeagueLeaderboard is an Authenticated API that retrieves a particular leagues leaderboard.
 func (api *AuthenticatedApi) GetLeagueLeaderboard(leagueId int) (*LeagueLeaderboard, error) {
 	const PAGE = "/leaderboards/leagues?game_period_id=&league_id=%d"
 
