@@ -45,3 +45,20 @@ func (*Api) getAndDecode(page string, data interface{}) error {
 	}
 	return nil
 }
+
+func (api *AuthenticatedApi) getAndDecode(page string, data interface{}) error {
+	request := client.Request{
+		Endpoint: client.BASE_URL + page,
+		Header:   client.MakeHeader(),
+	}
+	request.Header["Cookie"] = []string{api.session.Cookie}
+	_, body, err := request.Get()
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(body, data)
+	if err != nil {
+		return err
+	}
+	return nil
+}
