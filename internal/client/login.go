@@ -1,4 +1,4 @@
-// Client implementation for interacting with the F1 Fantasy website.
+// Package client implementation for interacting with the F1 Fantasy website.
 package client
 
 import (
@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 )
 
-// Base URL for requests to F1 Fantasy Server.
+// BASE_URL for requests to F1 Fantasy Server.
 const BASE_URL = "https://fantasy-api.formula1.com/f1/2022"
 
 type loginRequest struct {

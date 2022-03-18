@@ -55,12 +55,12 @@ func (req Request) send(method string) (http.Header, []byte, error) {
 	return res.Header, body, nil
 }
 
-// Post will send an HTTP request to the server and return back a bytes array with the result.
+// Post will post an HTTP request to the server and return back a bytes array with the result.
 func (req Request) Post() (http.Header, []byte, error) {
 	return req.send("POST")
 }
 
-// Post will send an HTTP request to the server and return back a bytes array with the result.
+// Get will get an HTTP request to the server and return back a bytes array with the result.
 func (req Request) Get() (http.Header, []byte, error) {
 	return req.send("GET")
 }
