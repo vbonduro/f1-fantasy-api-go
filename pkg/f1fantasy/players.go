@@ -1,15 +1,18 @@
 package f1fantasy
 
+// Headshot contains urls for player headshot photos.
 type Headshot struct {
 	Profile    string `json:"profile"`
 	PitchView  string `json:"pitch_view"`
 	PlayerList string `json:"player_list"`
 }
 
+// Image contains information for a picture.
 type Image struct {
 	Url *string `json:"url,omitempty"`
 }
 
+// DriverData encodes detailed information for a Driver.
 type DriverData struct {
 	Wins                int    `json:"wins"`
 	Podiums             int    `json:"podiums"`
@@ -26,6 +29,7 @@ type DriverData struct {
 	PlaceOfBirth        string `json:"place_of_birth"`
 }
 
+// ConstructorData encodes detailed information for a Constructor.
 type ConstructorData struct {
 	BestFinish          int     `json:"best_finish"`
 	BestFinishCount     int     `json:"best_finish_count"`
@@ -40,6 +44,7 @@ type ConstructorData struct {
 	HighestRaceFinished string  `json:"highest_race_finished"`
 }
 
+// Player contains all of the information for a particular F1 Driver or Constructor.
 type Player struct {
 	Id                          int              `json:"id"`
 	FirstName                   string           `json:"first_name"`
@@ -85,10 +90,12 @@ type Player struct {
 	//StreakEventsProgress        []string         `json:"streak_events_progress"` //todo: Figure out format.
 }
 
+// Meta encodes metadata for the F1 Players response.
 type Meta struct {
 	Total int `json:"total"`
 }
 
+// Players is the parent container for all information on F1 Drivers and Constructors.
 type Players struct {
 	PlayerList []Player `json:"players"`
 	MetaInfo   Meta     `json:"meta"`

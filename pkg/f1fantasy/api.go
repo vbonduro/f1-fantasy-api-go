@@ -1,4 +1,4 @@
-// f1fantasy Provides APIs to access data from the f1 fantasy website.
+// Package f1fantasy provides APIs to access data from the f1 fantasy website.
 package f1fantasy
 
 import (
@@ -7,9 +7,11 @@ import (
 	"github.com/vbonduro/f1-fantasy-api-go/internal/client"
 )
 
+// Api is used to access the public API for the f1 fantasy website.
 type Api struct {
 }
 
+// AuthenticatedApi is used to access both public and authenticated endpoints from the f1 fantasy website.
 type AuthenticatedApi struct {
 	Api
 	session *client.Session
