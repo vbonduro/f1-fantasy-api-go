@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-// Encodes pertinent information for an authenticated session.
+// Session encodes pertinent information for an authenticated session.
 type Session struct {
 	Cookie string
 	Expiry time.Time
