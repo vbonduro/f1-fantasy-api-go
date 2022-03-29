@@ -1,5 +1,6 @@
 package client
 
+// MakeHeader creates an http header to use in requests to the F1 Fantasy website.
 func MakeHeader() map[string][]string {
 	return map[string][]string{
 		"authority":          {"api.formula1.com"},
