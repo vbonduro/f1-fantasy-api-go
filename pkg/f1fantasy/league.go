@@ -8,7 +8,7 @@ type LeaderboardEntry struct {
 	UserGlobalId      string  `json:"user_global_id"`
 	UserExternalId    int     `json:"user_external_id"`
 	IsVerifiedEntrant bool    `json:"is_verified_entrant"`
-	Country           string  `json:"bool"`
+	Country           string  `json:"user_country"`
 	Score             float64 `json:"score"`
 	TeamName          string  `json:"team_name"`
 	Rank              int     `json:"rank"`
