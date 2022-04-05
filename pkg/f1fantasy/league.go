@@ -4,17 +4,17 @@ import "fmt"
 
 // LeaderboardEntry is a particular entry in the league leaderboard.
 type LeaderboardEntry struct {
-	UserId            int      `json:"user_id"`
-	UserGlobalId      string   `json:"user_global_id"`
-	UserExternalId    int      `json:"user_external_id"`
-	IsVerifiedEntrant bool     `json:"is_verified_entrant"`
-	Country           string   `json:"bool"`
-	Score             float64  `json:"score"`
-	TeamName          string   `json:"team_name"`
-	Rank              int      `json:"rank"`
-	UserName          string   `json:"username"`
-	Slot              int      `json:"slot"`
-	UsedBoosterIds    []string `json:"overall_used_booster_ids"` // todo: Figure out format!
+	UserId            int     `json:"user_id"`
+	UserGlobalId      string  `json:"user_global_id"`
+	UserExternalId    int     `json:"user_external_id"`
+	IsVerifiedEntrant bool    `json:"is_verified_entrant"`
+	Country           string  `json:"bool"`
+	Score             float64 `json:"score"`
+	TeamName          string  `json:"team_name"`
+	Rank              int     `json:"rank"`
+	UserName          string  `json:"username"`
+	Slot              int     `json:"slot"`
+	UsedBoosterIds    []int   `json:"overall_used_booster_ids"` // todo: Figure out format!
 }
 
 // Leaderboard contains information for the leaderboard for a particular league.

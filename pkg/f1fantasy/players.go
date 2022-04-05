@@ -44,6 +44,18 @@ type ConstructorData struct {
 	HighestRaceFinished string  `json:"highest_race_finished"`
 }
 
+// Information about change in price.
+type PriceChangeData struct {
+	SelectionPercentage         float64 `json:"current_selection_percentage"`
+	ProbabilityPriceUpPercent   int     `json:"probability_price_up_percentage"`
+	ProbabilityPriceDownPercent int     `json:"probability_price_down_percentage"`
+}
+
+type PriceHistory struct {
+	GamePeriodId int     `json:"game_period_id"`
+	Price        float64 `json:"price"`
+}
+
 // Player contains all of the information for a particular F1 Driver or Constructor.
 type Player struct {
 	Id                          int              `json:"id"`
@@ -54,7 +66,7 @@ type Player struct {
 	PositionId                  int              `json:"position_id"`
 	PositionAbbreviation        string           `json:"position_abbreviation"`
 	Price                       float64          `json:"price"`
-	PriceChangeInfo             *string          `json:"current_price_change_info,omitempty"` //todo: Figure out format.
+	PriceChangeInfo             *PriceChangeData `json:"current_price_change_info,omitempty"` //todo: Figure out format.
 	Status                      *string          `json:"status,omitempty"`                    //todo: Figure out format.
 	Injured                     bool             `json:"injured"`
 	InjuryType                  *string          `json:"injury_type,omitempty"` //todo: Figure out format.
@@ -76,11 +88,11 @@ type Player struct {
 	Country                     *string          `json:"country,omitempty"`
 	CountryIso                  *string          `json:"country_iso,omitempty"`
 	IsConstructor               bool             `json:"is_constructor"`
-	SeasonScore                 int64            `json:"season_score"`
+	SeasonScore                 float64          `json:"season_score"`
 	DriverStats                 *DriverData      `json:"driver_data,omitempty"`
 	ConstructorStats            *ConstructorData `json:"constructor_data,omitempty"`
 	Born                        *string          `json:"born_at,omitempty"`
-	SeasonPrices                *string          `json:"season_prices,omitempty"`
+	SeasonPrices                []PriceHistory   `json:"season_prices,omitempty"`
 	NumFixturesInGameweek       int              `json:"num_fixtures_in_gameweek"`
 	DeletedInFeed               bool             `json:"deleted_in_feed"`
 	HasFixture                  bool             `json:"has_fixture"`
