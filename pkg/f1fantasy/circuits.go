@@ -1,18 +1,26 @@
 package f1fantasy
 
-import "time"
+import (
+	"encoding/json"
+	"fmt"
+	"time"
+
+	"github.com/tidwall/gjson"
+)
 
 // CircuitInfo encodes detailed information for an F1 Circuit.
+// todo change practice and qualifying to time.time!
 type CircuitInfo struct {
+	StartDay       time.Time
 	Id             int       `json:"id"`
 	FirstGrandPrix string    `json:"first_grand_prix"`
 	TotalLaps      string    `json:"laps_total"`
 	Length         string    `json:"length"`
 	Distance       string    `json:"distance"`
 	LapRecord      string    `json:"lap_record"`
-	Practice1      string    `json:"practice_one"`
-	Practice2      string    `json:"practice_two"`
-	Practice3      string    `json:"practice_three"`
+	Practice1      string    `json:"pratice_one"`
+	Practice2      string    `json:"pratice_two"`
+	Practice3      string    `json:"pratice_three"`
 	Qualifying     string    `json:"qualifying"`
 	Race           string    `json:"race"`
 	Created        time.Time `json:"created_at"`
@@ -41,4 +49,30 @@ func (api *Api) GetCircuits() ([]Circuit, error) {
 		return nil, err
 	}
 	return circuits, nil
+}
+
+// CurrentCircuit is an authenticated API that retrieves the upcoming/current race information.
+func (api *AuthenticatedApi) CurrentCircuit() (*CircuitInfo, error) {
+	bytes, err := api.get("")
+	if err != nil {
+		return nil, err
+	}
+	var race CircuitInfo
+	currentCircuit := gjson.Get(string(bytes),
+		"partner_game.current_partner_season.current_game_period.circuit").String()
+	err = json.Unmarshal([]byte(currentCircuit), &race)
+	if err != nil {
+		return nil, err
+	}
+
+	startQuery := fmt.Sprintf("partner_game.current_partner_season.game_periods.%d.starts_at", race.Id-1)
+	raceStart := gjson.Get(string(bytes), startQuery).String()
+
+	const LAYOUT = "2006-01-02T15:04:05.000Z"
+	race.StartDay, err = time.Parse(LAYOUT, raceStart)
+	if err != nil {
+		return nil, err
+	}
+
+	return &race, nil
 }
