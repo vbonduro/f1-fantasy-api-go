@@ -3,6 +3,8 @@ package f1fantasy
 
 import (
 	"encoding/json"
+	"fmt"
+	"time"
 
 	"github.com/vbonduro/f1-fantasy-api-go/internal/client"
 )
@@ -30,6 +32,12 @@ func NewAuthenticatedApi(user string, password string) (*AuthenticatedApi, error
 		return nil, err
 	}
 	return &AuthenticatedApi{session: session}, nil
+}
+
+// Expired checks whether or not the session is still valid. If it isn't the client must create a new authenticated API instance.
+func (api *AuthenticatedApi) Expired() bool {
+	anHourAgo := time.Now().Add(time.Duration(-1) * time.Hour)
+	return api.session.Expiry.Before(anHourAgo)
 }
 
 func (*Api) getAndDecode(page string, data interface{}) error {
