@@ -3,7 +3,6 @@ package f1fantasy
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/vbonduro/f1-fantasy-api-go/internal/client"
@@ -71,4 +70,17 @@ func (api *AuthenticatedApi) getAndDecode(page string, data interface{}) error {
 		return err
 	}
 	return nil
+}
+
+func (api *AuthenticatedApi) get(page string) ([]byte, error) {
+	request := client.Request{
+		Endpoint: client.BASE_URL + page,
+		Header:   client.MakeHeader(),
+	}
+	request.Header["Cookie"] = []string{api.session.Cookie}
+	_, body, err := request.Get()
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
 }
